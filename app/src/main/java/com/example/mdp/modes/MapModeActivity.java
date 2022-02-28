@@ -36,14 +36,14 @@ public class MapModeActivity extends AppCompatActivity {
     Button startStopwatch, stopStopwatch, resetStopwatch, sendPos;
     TextView stopwatchText, statusText;
     private boolean isResume;
-    Handler handler, statusHandler;
+    Handler handler;
     long tMilliSec, tStart, tBuff, tUpdate = 0L;
     int milliSec, sec, min;
     MapCanvas mapCanvas;
     private static ExplorationArea _map = new ExplorationArea();
     String command, outgoing;
     Context context;
-
+    private static Handler movementHandler = new Handler();
     private static int xOffset = 0;
     private static int yOffset = 0;
     private static Robot robot = _map.getRobo();
@@ -183,6 +183,8 @@ public class MapModeActivity extends AppCompatActivity {
     }
 
     static void forward(double xFlag, double yFlag, int distance, int currentX, int currentY) {
+        int reps = Math.abs(distance/10);
+        Log.d("MapMode", "forward: " + reps);
         if(xFlag != 0 && distance % 10 != 0)  {
             distance = (int) (xFlag * distance + xOffset);
             xOffset = distance % 10;
@@ -190,10 +192,14 @@ public class MapModeActivity extends AppCompatActivity {
             distance = (int) (yFlag * distance + yOffset);
             yOffset = distance % 10;
         }
-        for (int i = 0; i <= Math.abs(distance/10); i++) {
-            robot.setX((int) (currentX + xFlag));
-            robot.setY((int) (currentY - yFlag));
-//            sleep(2000);
+        for (int i = 0; i <= reps; i++) {
+            movementHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    _map.getRobo().setY((int) (_map.getRobo().getY() - yFlag));
+                    _map.getRobo().setX((int) (_map.getRobo().getX() + xFlag));
+                }
+            }, 2000);
         }
     }
 
@@ -205,91 +211,102 @@ public class MapModeActivity extends AppCompatActivity {
             distance = - (int) (yFlag * distance + yOffset);
             yOffset = distance % 10;
         }
-        for (int i = 0; i <= Math.abs(distance/10); i++) {
-            robot.setX((int) (currentX - xFlag));
-            robot.setY((int) (currentY + yFlag));
-//            sleep(2000);
+        for (int i = 0; i < Math.abs(distance/10); i++) {
+            movementHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    _map.getRobo().setY((int) (_map.getRobo().getY() + yFlag));
+                    _map.getRobo().setX((int) (_map.getRobo().getX() - xFlag));
+                }
+            }, 2000);
         }
     }
 
     static void inplaceRight(int currentDir) {
-//        sleep(1600);
-        if (currentDir > 0) {
-            robot.setFacing(currentDir - 1);
-        }
-        else {
-            robot.setFacing(3);
-        }
+        movementHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (currentDir > 0) {
+                    _map.getRobo().setFacing(currentDir - 1);
+                }
+                else {
+                    _map.getRobo().setFacing(3);
+                }
+            }
+        }, 1600);
+
     }
 
     static  void inplaceLeft(int currentDir) {
-        sleep(1600);
-        if (currentDir < 3) {
-            robot.setFacing(currentDir + 1);
-        }
-        else {
-            robot.setFacing(0);
-        }
+        movementHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (currentDir < 3) {
+                    _map.getRobo().setFacing(currentDir + 1);
+                }
+                else {
+                    _map.getRobo().setFacing(0);
+                }
+            }
+        }, 1600);
+
     }
 
     public static void moveRobot(String instructions) {
         Log.d("MapMode", "moveRobot: " + instructions);
         // FORWARD 15
         String[] instruction = instructions.split(" ",2);
-        robot.cycleFace(true);
-        robot.setY(Integer.parseInt(instruction[0]));
-        robot.setX(Integer.parseInt(instruction[1]));
-//        int distance = 0;
-//        // Add code for robot pos based on algo instructions
-//        // e.g. forward 15, ForwardTurnLeft, BACkwardTUrnLEFT,InplaceLeft, backward 15
-//        // Speed 2.363s / 10cm
-//        // Turn 20 35
-//        // Example:
-//        int currentX = robot.getX();
-//        int currentY = robot.getY();
-//        Log.d("MapMode", "Current X,Y: " + currentX + ", " +currentY);
-//        int currentDir = robot.getFacing();
-//        if (instruction.length > 1) {
-//            distance = Integer.parseInt(instruction[1]);
-//        }
-//        double radians = Math.toRadians(currentDir * 90);
-//        double xFlag = Math.cos(radians);
-//        double yFlag = Math.sin(radians);
-//        switch (instruction[0]) {
-//            case "FORWARD":
-//                // Flags, Distance, offsets
-//                forward(xFlag, yFlag, distance, currentX, currentY);
-//                break;
-//            case "FORWARDTURNLEFT":
-//                forward(xFlag, yFlag, 20, currentX, currentY);
-//                inplaceLeft(currentDir);
-//                forward(xFlag, yFlag, 35, currentX, currentY);
-//                break;
-//            case "FORWARDTURNRIGHT":
-//                forward(xFlag, yFlag, 20, currentX, currentY);
-//                inplaceRight(currentDir);
-//                forward(xFlag, yFlag, 35, currentX, currentY);
-//                break;
-//            case "BACKWARD":
-//                backward(xFlag, yFlag, distance, currentX, currentY);
-//                break;
-//            case "BACKWARDTURNLEFT":
-//                backward(xFlag, yFlag, 20, currentX, currentY);
-//                inplaceLeft(currentDir);
-//                backward(xFlag, yFlag, 35, currentX, currentY);
-//                break;
-//            case "BACKWARDTURNRIGHT":
-//                backward(xFlag, yFlag, 20, currentX, currentY);
-//                inplaceRight(currentDir);
-//                backward(xFlag, yFlag, 35, currentX, currentY);
-//                break;
-//            case "INPLACELEFT":
-//                inplaceLeft(currentDir);
-//                break;
-//            case "INPLACERIGHT":
-//                inplaceRight(currentDir);
-//                break;
-//        }
+        int distance = 0;
+        // Add code for robot pos based on algo instructions
+        // e.g. forward 15, ForwardTurnLeft, BACkwardTUrnLEFT,InplaceLeft, backward 15
+        // Speed 2.363s / 10cm
+        // Turn 20 35
+        // Example:
+        int currentX = _map.getRobo().getX();
+        int currentY = _map.getRobo().getY();
+        Log.d("MapMode", "Current X,Y: " + currentX + ", " +currentY);
+        int currentDir = robot.getFacing();
+        if (instruction.length > 1) {
+            distance = Integer.parseInt(instruction[1]);
+        }
+        double radians = Math.toRadians(currentDir * 90);
+        double xFlag = Math.cos(radians);
+        double yFlag = Math.sin(radians);
+        switch (instruction[0]) {
+            case "FORWARD":
+                // Flags, Distance, offsets
+                forward(xFlag, yFlag, distance, currentX, currentY);
+                break;
+            case "FORWARDTURNLEFT":
+                forward(xFlag, yFlag, 20, currentX, currentY);
+                inplaceLeft(currentDir);
+                forward(xFlag, yFlag, 35, currentX, currentY);
+                break;
+            case "FORWARDTURNRIGHT":
+                forward(xFlag, yFlag, 20, currentX, currentY);
+                inplaceRight(currentDir);
+                forward(xFlag, yFlag, 35, currentX, currentY);
+                break;
+            case "BACKWARD":
+                backward(xFlag, yFlag, distance, currentX, currentY);
+                break;
+            case "BACKWARDTURNLEFT":
+                backward(xFlag, yFlag, 20, currentX, currentY);
+                inplaceLeft(currentDir);
+                backward(xFlag, yFlag, 35, currentX, currentY);
+                break;
+            case "BACKWARDTURNRIGHT":
+                backward(xFlag, yFlag, 20, currentX, currentY);
+                inplaceRight(currentDir);
+                backward(xFlag, yFlag, 35, currentX, currentY);
+                break;
+            case "INPLACELEFT":
+                inplaceLeft(currentDir);
+                break;
+            case "INPLACERIGHT":
+                inplaceRight(currentDir);
+                break;
+        }
     }
 
     public static void updateTarget(String information) {

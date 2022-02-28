@@ -91,9 +91,12 @@ public class messageActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent switchActivityIntent;
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                switchActivityIntent = new Intent(this, ModeSelectionActivity.class);
+                startActivity(switchActivityIntent);
+//                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
