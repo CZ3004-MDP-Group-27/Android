@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bluetooth.messageActivity">
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/status_default"
+        android:textColor="@color/blue_jeans"
+        android:fontFamily="@font/lato_bold"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+
+    <ScrollView
+        android:id="@+id/messageBoxScroll"
+        android:layout_width="wrap_content"
+        android:layout_height="480dp"
+        android:layout_below="@+id/statusText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/message_chat_box"
+        android:elevation="2dp"
+        android:fadeScrollbars="false"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/messageBoxText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:fontFamily="@font/lato"
+            android:gravity="bottom"
+            android:paddingHorizontal="10dp"
+            android:textSize="15sp"
+            android:scrollHorizontally="false"
+            android:textColor="@color/blue_jeans"/>
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/messageText"
+        android:layout_width="480dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/messageBoxScroll"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/message_text_box_left"
+        android:inputType="textPersonName"
+        android:textSize="15sp"
+        android:hint="Message"
+        android:textColorHint="@color/white"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/lato"/>
+
+    <ImageButton
+        android:id="@+id/sendMessageBtn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/messageBoxScroll"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_baseline_send_24"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/message_text_box_right" />
+
+
+</RelativeLayout>

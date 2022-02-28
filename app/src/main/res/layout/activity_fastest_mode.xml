@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modes.FastestModeActivty">
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/status_default"
+        android:textColor="@color/blue_jeans"
+        android:fontFamily="@font/lato_bold"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/stopwatchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/stopwatch_default"
+        android:textColor="@color/blue_jeans"
+        android:textSize="150sp"/>
+
+    <Button
+        android:id="@+id/startStopwatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stopwatchText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/emerald"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/start"
+        android:textSize="35sp"
+        android:visibility="visible"/>
+
+    <Button
+        android:id="@+id/stopStopwatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stopwatchText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/stop"
+        android:textSize="35sp"
+        android:fontFamily="@font/lato_regular"
+        android:backgroundTint="@color/red_crayola"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/resetStopwatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stopwatchText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/reset"
+        android:textSize="35sp"
+        android:fontFamily="@font/lato_regular"
+        android:backgroundTint="@color/blue_jeans"
+        android:visibility="gone"/>
+
+</RelativeLayout>

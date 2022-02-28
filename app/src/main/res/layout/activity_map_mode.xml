@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modes.MapModeActivity">
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/status_default"
+        android:textColor="@color/blue_jeans"
+        android:textSize="20sp"
+        android:fontFamily="@font/lato_bold"
+        android:textStyle="bold"/>
+
+    <com.example.mdp.map.MapCanvas
+        android:id="@+id/pathGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statusText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:longClickable="true"
+        app:exploreColor="@color/white"
+        app:exploreHeadColor="@color/dodger_blue"
+        app:finalPathColor="#CBC6FF00"
+        app:gridColor="@color/dodger_blue"
+        app:roboColor="@color/black"
+        app:tarNumColor="@color/white"
+        app:targetColor="@color/red_crayola"
+        app:wheelColor="@color/white" />
+
+    <TextView
+        android:id="@+id/imageStopwatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pathGrid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/stopwatch_default"
+        android:textSize="100sp"
+        android:fontFamily="@font/lato"
+        android:textColor="@color/blue_jeans"
+        />
+
+    <Button
+        android:id="@+id/startImageRecognition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="@string/start_image_recognition"
+        android:fontFamily="@font/lato"
+        android:backgroundTint="@color/emerald"
+        android:visibility="visible"/>
+
+    <Button
+        android:id="@+id/stopImageRecognition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="@string/stop_image_recognition"
+        android:fontFamily="@font/lato"
+        android:backgroundTint="@color/red_crayola"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/resetImageRecognition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="@string/reset_image_recognition"
+        android:fontFamily="@font/lato"
+        android:visibility="gone"/>
+
+</RelativeLayout>
