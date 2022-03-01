@@ -34,7 +34,8 @@ import java.util.ArrayList;
 
 public class MapModeActivity extends AppCompatActivity {
     Button startStopwatch, stopStopwatch, resetStopwatch, sendPos;
-    TextView stopwatchText, statusText;
+    TextView stopwatchText;
+    private static TextView statusText;
     private boolean isResume;
     Handler handler;
     long tMilliSec, tStart, tBuff, tUpdate = 0L;
@@ -77,6 +78,7 @@ public class MapModeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     mapCanvas.setSolving(true);
+                    updateStatusText("Task 1 Begin");
                     Log.d("MAP MODE","START IMAGE RECOGNITION CHALLENGE");
                     command = "map-ROB:15,15;";
                     int xPos, yPos, direction, number;
@@ -109,6 +111,7 @@ public class MapModeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     mapCanvas.setSolving(false);
+                    updateStatusText("Stopped");
                     Log.d("MAP MODE","END IMAGE RECOGNITION CHALLENGE");
                     BTService.sendMessage("stopImage");
                     outgoing = "twenty-seven: stopImage\n";
@@ -223,6 +226,7 @@ public class MapModeActivity extends AppCompatActivity {
                     _map.getRobo().setY(_map.getRobo().getY() - yFlag);
                     _map.getRobo().setX(_map.getRobo().getX() + xFlag);
                     Log.d("Forward", "Current X,Y: " + _map.getRobo().getX() + ", " + _map.getRobo().getY() + "Facing: " + _map.getRobo().getFacingText() + " (" + _map.getRobo().getFacing() + ")");
+                    updateStatusText("Moving forward");
                 }
             }, delay);
         }
@@ -269,6 +273,7 @@ public class MapModeActivity extends AppCompatActivity {
                     _map.getRobo().setY(_map.getRobo().getY() + yFlag);
                     _map.getRobo().setX(_map.getRobo().getX() - xFlag);
                     Log.d("Forward", "Current X,Y: " + _map.getRobo().getX() + ", " + _map.getRobo().getY() + "Facing: " + _map.getRobo().getFacingText() + " (" + _map.getRobo().getFacing() + ")");
+                    updateStatusText("Reversing");
                 }
             }, delay);
         }
@@ -292,6 +297,7 @@ public class MapModeActivity extends AppCompatActivity {
                     _map.getRobo().setFacing(3);
                 }
                 Log.d("Forward", "Current X,Y: " + _map.getRobo().getX() + ", " + _map.getRobo().getY() + "Facing: " + _map.getRobo().getFacingText() + " (" + _map.getRobo().getFacing() + ")");
+                updateStatusText("In-place right turn");
             }
         }, delay);
 
@@ -315,6 +321,7 @@ public class MapModeActivity extends AppCompatActivity {
                     _map.getRobo().setFacing(0);
                 }
                 Log.d("Forward", "Current X,Y: " + _map.getRobo().getX() + ", " + _map.getRobo().getY() + "Facing: " + _map.getRobo().getFacingText() + " (" + _map.getRobo().getFacing() + ")");
+                updateStatusText("In-place left turn");
             }
         }, delay);
 
@@ -337,6 +344,7 @@ public class MapModeActivity extends AppCompatActivity {
             case "FORWARD":
                 // Flags, Distance, offsets
                 forward(distance, false,false);
+
                 break;
             case "FORWARDTURNLEFT":
                 forward(20,false,false);
@@ -373,7 +381,15 @@ public class MapModeActivity extends AppCompatActivity {
     public static void updateTarget(String information) {
         Log.d("MapMode", "updateTarget: " + information);
         String[] targetImage = information.split(",",2);
+        int obstacleId = Integer.parseInt(targetImage[0]) - 1;
+        int imageId = Integer.parseInt(targetImage[1]);
         ArrayList<Obstacle> targets = _map.getTargets();
-        targets.get(Integer.parseInt(targetImage[0]) - 1).setImg(Integer.parseInt(targetImage[1]));
+        targets.get(obstacleId).setImg(imageId);
+        updateStatusText("Image on Obstacle" + obstacleId + " recognised  as Image ID: " + imageId);
+    }
+
+    @SuppressLint("SetTextI18n")
+    public static void updateStatusText(String status) {
+        statusText.setText("Status: " + status);
     }
 }
