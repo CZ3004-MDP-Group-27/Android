@@ -15,10 +15,10 @@ public class Robot {
     public static final int ROBOT_SERVO_CENTRE = 0;
     public static final int ROBOT_SERVO_RIGHT = 1;
 
-    public static final int ROBOT_FACE_NORTH = 1;
     public static final int ROBOT_FACE_EAST = 0;
-    public static final int ROBOT_FACE_SOUTH = 3;
+    public static final int ROBOT_FACE_NORTH = 1;
     public static final int ROBOT_FACE_WEST = 2;
+    public static final int ROBOT_FACE_SOUTH = 3;
 
     public static final String ROBOT_COMMAND_POS = "ROBOT";
     public static final String STM_COMMAND_FORWARD = "f";
@@ -53,10 +53,10 @@ public class Robot {
     public void setFacing(int f) { this.f = f; }
     public String getFacingText() {
         switch (this.f) {
-            case 0: return "NORTH";
-            case 1: return "EAST";
-            case 2: return "SOUTH";
-            case 3: return "WEST";
+            case 0: return "EAST";
+            case 1: return "NORTH";
+            case 2: return "WEST";
+            case 3: return "SOUTH";
         }
         return "N";
     }

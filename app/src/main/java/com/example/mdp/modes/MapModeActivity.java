@@ -46,7 +46,7 @@ public class MapModeActivity extends AppCompatActivity {
     private static Handler movementHandler = new Handler();
     private static int xOffset = 0;
     private static int yOffset = 0;
-    private static Robot robot = _map.getRobo();
+//    private static Robot robot = _map.getRobo();
 
 
     @Override
@@ -182,47 +182,106 @@ public class MapModeActivity extends AppCompatActivity {
         }
     }
 
-    static void forward(double xFlag, double yFlag, int distance, int currentX, int currentY) {
+    static void forward(int distance, boolean isForwardTurnRight, boolean isForwardTurnLeft) {
         int reps = Math.abs(distance/10);
-        Log.d("MapMode", "forward: " + reps);
+        int currentDir = _map.getRobo().getFacing();
+        if (isForwardTurnRight) {
+            if (currentDir > 0) {
+                currentDir = currentDir - 1;
+            }
+            else {
+                currentDir = 3;
+            }
+        } else if (isForwardTurnLeft) {
+            if (currentDir < 3) {
+                currentDir = currentDir + 1;
+            }
+            else {
+                currentDir = 0;
+            }
+        }
+        double radians = Math.toRadians(currentDir * 90);
+        int xFlag =  (int) Math.cos(radians);
+        int yFlag = (int) Math.sin(radians);
         if(xFlag != 0 && distance % 10 != 0)  {
-            distance = (int) (xFlag * distance + xOffset);
+            distance = xFlag * distance + xOffset;
             xOffset = distance % 10;
         } else if (yFlag != 0 && distance % 10 != 0){
-            distance = (int) (yFlag * distance + yOffset);
+            distance = yFlag * distance + yOffset;
             yOffset = distance % 10;
         }
-        for (int i = 0; i <= reps; i++) {
+        for (int i = 0; i < reps; i++) {
+            int delay;
+            if (isForwardTurnRight || isForwardTurnLeft) {
+                delay = 7600 + 2000 * (i + 1);
+            } else {
+                delay = 2000 * (i + 1);
+            }
             movementHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    _map.getRobo().setY((int) (_map.getRobo().getY() - yFlag));
-                    _map.getRobo().setX((int) (_map.getRobo().getX() + xFlag));
+                    _map.getRobo().setY(_map.getRobo().getY() - yFlag);
+                    _map.getRobo().setX(_map.getRobo().getX() + xFlag);
+                    Log.d("Forward", "Current X,Y: " + _map.getRobo().getX() + ", " + _map.getRobo().getY() + "Facing: " + _map.getRobo().getFacingText() + " (" + _map.getRobo().getFacing() + ")");
                 }
-            }, 2000);
+            }, delay);
         }
+
     }
 
-    static void backward(double xFlag, double yFlag, int distance, int currentX, int currentY) {
+    static void backward(int distance, boolean isBackwardTurnRight, boolean isBackwardTurnLeft) {
+        int currentDir = _map.getRobo().getFacing();
+        if (isBackwardTurnRight) {
+            if (currentDir < 3) {
+                currentDir = currentDir + 1;
+            }
+            else {
+                currentDir = 0;
+            }
+        } else if (isBackwardTurnLeft) {
+            if (currentDir > 0) {
+                currentDir = currentDir - 1;
+            }
+            else {
+                currentDir = 3;
+            }
+        }
+        double radians = Math.toRadians(currentDir * 90);
+        int xFlag = (int) Math.cos(radians);
+        int yFlag = (int) Math.sin(radians);
         if(xFlag != 0 && distance % 10 != 0)  {
-            distance =  - (int) (xFlag * distance + xOffset);
+            distance =  -xFlag * distance + xOffset;
             xOffset = distance % 10;
         } else if (yFlag != 0 && distance % 10 != 0){
-            distance = - (int) (yFlag * distance + yOffset);
+            distance = -yFlag * distance + yOffset;
             yOffset = distance % 10;
         }
         for (int i = 0; i < Math.abs(distance/10); i++) {
+            int delay;
+            if (isBackwardTurnRight || isBackwardTurnLeft) {
+                delay = 7600 + 2000 * (i + 1);
+            } else {
+                delay = 2000 * (i + 1);
+            }
             movementHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    _map.getRobo().setY((int) (_map.getRobo().getY() + yFlag));
-                    _map.getRobo().setX((int) (_map.getRobo().getX() - xFlag));
+                    _map.getRobo().setY(_map.getRobo().getY() + yFlag);
+                    _map.getRobo().setX(_map.getRobo().getX() - xFlag);
+                    Log.d("Forward", "Current X,Y: " + _map.getRobo().getX() + ", " + _map.getRobo().getY() + "Facing: " + _map.getRobo().getFacingText() + " (" + _map.getRobo().getFacing() + ")");
                 }
-            }, 2000);
+            }, delay);
         }
     }
 
-    static void inplaceRight(int currentDir) {
+    static void inplaceRight(boolean notInplace) {
+        int currentDir = _map.getRobo().getFacing();
+        int delay;
+        if (notInplace) {
+            delay = 5600;
+        } else {
+            delay = 1600;
+        }
         movementHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -232,12 +291,20 @@ public class MapModeActivity extends AppCompatActivity {
                 else {
                     _map.getRobo().setFacing(3);
                 }
+                Log.d("Forward", "Current X,Y: " + _map.getRobo().getX() + ", " + _map.getRobo().getY() + "Facing: " + _map.getRobo().getFacingText() + " (" + _map.getRobo().getFacing() + ")");
             }
-        }, 1600);
+        }, delay);
 
     }
 
-    static  void inplaceLeft(int currentDir) {
+    static  void inplaceLeft(boolean notInplace) {
+        int currentDir = _map.getRobo().getFacing();
+        int delay;
+        if (notInplace) {
+            delay = 5600;
+        } else {
+            delay = 1600;
+        }
         movementHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -247,64 +314,58 @@ public class MapModeActivity extends AppCompatActivity {
                 else {
                     _map.getRobo().setFacing(0);
                 }
+                Log.d("Forward", "Current X,Y: " + _map.getRobo().getX() + ", " + _map.getRobo().getY() + "Facing: " + _map.getRobo().getFacingText() + " (" + _map.getRobo().getFacing() + ")");
             }
-        }, 1600);
+        }, delay);
 
     }
 
     public static void moveRobot(String instructions) {
         Log.d("MapMode", "moveRobot: " + instructions);
-        // FORWARD 15
         String[] instruction = instructions.split(" ",2);
         int distance = 0;
-        // Add code for robot pos based on algo instructions
-        // e.g. forward 15, ForwardTurnLeft, BACkwardTUrnLEFT,InplaceLeft, backward 15
         // Speed 2.363s / 10cm
         // Turn 20 35
-        // Example:
         int currentX = _map.getRobo().getX();
         int currentY = _map.getRobo().getY();
-        Log.d("MapMode", "Current X,Y: " + currentX + ", " +currentY);
-        int currentDir = robot.getFacing();
+        int currentDir = _map.getRobo().getFacing();
+        Log.d("MapMode", "Current X,Y: " + currentX + ", " +currentY + "Facing: " + currentDir);
         if (instruction.length > 1) {
             distance = Integer.parseInt(instruction[1]);
         }
-        double radians = Math.toRadians(currentDir * 90);
-        double xFlag = Math.cos(radians);
-        double yFlag = Math.sin(radians);
         switch (instruction[0]) {
             case "FORWARD":
                 // Flags, Distance, offsets
-                forward(xFlag, yFlag, distance, currentX, currentY);
+                forward(distance, false,false);
                 break;
             case "FORWARDTURNLEFT":
-                forward(xFlag, yFlag, 20, currentX, currentY);
-                inplaceLeft(currentDir);
-                forward(xFlag, yFlag, 35, currentX, currentY);
+                forward(20,false,false);
+                inplaceLeft(true);
+                forward(35,false,true);
                 break;
             case "FORWARDTURNRIGHT":
-                forward(xFlag, yFlag, 20, currentX, currentY);
-                inplaceRight(currentDir);
-                forward(xFlag, yFlag, 35, currentX, currentY);
+                forward(20,false,false);
+                inplaceRight(true);
+                forward(35,true, false);
                 break;
             case "BACKWARD":
-                backward(xFlag, yFlag, distance, currentX, currentY);
+                backward(distance,false,false);
                 break;
             case "BACKWARDTURNLEFT":
-                backward(xFlag, yFlag, 20, currentX, currentY);
-                inplaceLeft(currentDir);
-                backward(xFlag, yFlag, 35, currentX, currentY);
+                backward(20,false,false);
+                inplaceRight(true);
+                backward(35,false,true);
                 break;
             case "BACKWARDTURNRIGHT":
-                backward(xFlag, yFlag, 20, currentX, currentY);
-                inplaceRight(currentDir);
-                backward(xFlag, yFlag, 35, currentX, currentY);
+                backward(20,false,false);
+                inplaceLeft(true);
+                backward(35,true,false);
                 break;
             case "INPLACELEFT":
-                inplaceLeft(currentDir);
+                inplaceLeft(false);
                 break;
             case "INPLACERIGHT":
-                inplaceRight(currentDir);
+                inplaceRight(false);
                 break;
         }
     }
@@ -313,6 +374,6 @@ public class MapModeActivity extends AppCompatActivity {
         Log.d("MapMode", "updateTarget: " + information);
         String[] targetImage = information.split(",",2);
         ArrayList<Obstacle> targets = _map.getTargets();
-        targets.get(Integer.parseInt(targetImage[0])).setImg(Integer.parseInt(targetImage[1]));
+        targets.get(Integer.parseInt(targetImage[0]) - 1).setImg(Integer.parseInt(targetImage[1]));
     }
 }

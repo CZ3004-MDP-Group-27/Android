@@ -212,6 +212,25 @@ public final class MapCanvas extends View {
 
     private void drawWheel(Canvas canvas) {
         int facingRotation = _map.getRobo().getFacing(); // 0-->3
+        switch (facingRotation) {
+            case 0:
+                facingRotation = 1;
+                break;
+            case 1:
+                facingRotation = 0;
+                break;
+            case 2:
+                facingRotation = 3;
+                break;
+            case 3:
+                facingRotation = 2;
+                break;
+        }
+//        if ( _map.getRobo().getFacing() > 0) {
+//            facingRotation = _map.getRobo().getFacing() - 1;
+//        } else {
+//            facingRotation = 3;
+//        }
 
         canvas.save();
         canvas.rotate(90 * facingRotation, (this._map.getRobo().getX()) * this.cellSize, (this._map.getRobo().getY() - 0.05f) * this.cellSize);
