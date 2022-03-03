@@ -87,9 +87,12 @@ public class MapModeActivity extends AppCompatActivity {
                         yPos = (21 - _map.getTargets().get(i).getY()) * 10 - 5;
                         direction = _map.getTargets().get(i).getF() * 90;
                         number = i +1;
-                        command += "OBS" + number + ":" + xPos + "," + yPos + "," + direction + ";";
+                        command += "OBS" + number + ":" + xPos + "," + yPos + "," + direction;
+                        if (i != _map.getTargets().size() - 1) {
+                            command += ";";
+                        }
                     }
-                    command += "\n";
+//                    command += "\n";
                     BTService.sendMessage(command);
                     outgoing = "twenty-seven: " + command + "\n";
                     messageActivity.chatHistory += outgoing;
@@ -216,9 +219,9 @@ public class MapModeActivity extends AppCompatActivity {
         for (int i = 0; i < reps; i++) {
             int delay;
             if (isForwardTurnRight || isForwardTurnLeft) {
-                delay = 7600 + 2000 * (i + 1);
+                delay = 560 + 200 * (i + 1); // Need to edit time for turn
             } else {
-                delay = 2000 * (i + 1);
+                delay = 200 * (i + 1);
             }
             movementHandler.postDelayed(new Runnable() {
                 @Override
@@ -263,9 +266,9 @@ public class MapModeActivity extends AppCompatActivity {
         for (int i = 0; i < Math.abs(distance/10); i++) {
             int delay;
             if (isBackwardTurnRight || isBackwardTurnLeft) {
-                delay = 7600 + 2000 * (i + 1);
+                delay = 560 + 200 * (i + 1);// Need to edit time for turn
             } else {
-                delay = 2000 * (i + 1);
+                delay = 200 * (i + 1);
             }
             movementHandler.postDelayed(new Runnable() {
                 @Override
@@ -283,9 +286,9 @@ public class MapModeActivity extends AppCompatActivity {
         int currentDir = _map.getRobo().getFacing();
         int delay;
         if (notInplace) {
-            delay = 5600;
+            delay = 560;
         } else {
-            delay = 1600;
+            delay = 160;
         }
         movementHandler.postDelayed(new Runnable() {
             @Override
@@ -307,9 +310,9 @@ public class MapModeActivity extends AppCompatActivity {
         int currentDir = _map.getRobo().getFacing();
         int delay;
         if (notInplace) {
-            delay = 5600;
+            delay = 560;
         } else {
-            delay = 1600;
+            delay = 160;
         }
         movementHandler.postDelayed(new Runnable() {
             @Override
@@ -331,7 +334,7 @@ public class MapModeActivity extends AppCompatActivity {
         Log.d("MapMode", "moveRobot: " + instructions);
         String[] instruction = instructions.split(" ",2);
         int distance = 0;
-        // Speed 2.363s / 10cm
+        // Speed 23.63ms / 10cm
         // Turn 20 35
         int currentX = _map.getRobo().getX();
         int currentY = _map.getRobo().getY();
@@ -385,7 +388,7 @@ public class MapModeActivity extends AppCompatActivity {
         int imageId = Integer.parseInt(targetImage[1]);
         ArrayList<Obstacle> targets = _map.getTargets();
         targets.get(obstacleId).setImg(imageId);
-        updateStatusText("Image on Obstacle" + obstacleId + " recognised  as Image ID: " + imageId);
+        updateStatusText("Image on Obstacle" + obstacleId + 1 + " recognised  as Image ID: " + imageId);
     }
 
     @SuppressLint("SetTextI18n")
