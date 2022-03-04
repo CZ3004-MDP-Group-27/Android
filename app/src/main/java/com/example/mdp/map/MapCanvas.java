@@ -202,9 +202,16 @@ public final class MapCanvas extends View {
 
         this.colorCell(canvas, this._map.getRobo().getY(), this._map.getRobo().getX(), 5.0F, this.startPaintColor);
         this.colorCell(canvas, this._map.getRobo().getY(), this._map.getRobo().getX() + 1, 5.0F, this.startPaintColor);
+        this.colorCell(canvas, this._map.getRobo().getY(), this._map.getRobo().getX() + 2, 5.0F, this.startPaintColor);
+
         this.colorCell(canvas, this._map.getRobo().getY() + 1, this._map.getRobo().getX(), 5.0F, this.startPaintColor);
         this.colorCell(canvas, this._map.getRobo().getY() + 1, this._map.getRobo().getX() + 1, 5.0F, this.startPaintColor);
+        this.colorCell(canvas, this._map.getRobo().getY() + 1, this._map.getRobo().getX() + 2, 5.0F, this.startPaintColor);
 
+        this.colorCell(canvas, this._map.getRobo().getY() - 1, this._map.getRobo().getX(), 5.0F, this.startPaintColor);
+        this.colorCell(canvas, this._map.getRobo().getY() - 1, this._map.getRobo().getX() + 1, 5.0F, this.startPaintColor);
+        this.colorCell(canvas, this._map.getRobo().getY() - 1, this._map.getRobo().getX() + 2, 5.0F, this.startPaintColor);
+        // TODO: Fix wheel drawing
         this.drawWheel(canvas);
 
         this.invalidate();
@@ -226,22 +233,12 @@ public final class MapCanvas extends View {
                 facingRotation = 2;
                 break;
         }
-//        if ( _map.getRobo().getFacing() > 0) {
-//            facingRotation = _map.getRobo().getFacing() - 1;
-//        } else {
-//            facingRotation = 3;
-//        }
 
         canvas.save();
         canvas.rotate(90 * facingRotation, (this._map.getRobo().getX()) * this.cellSize, (this._map.getRobo().getY() - 0.05f) * this.cellSize);
 
-        Paint paintl = new Paint();
-        paintl.setColor(this.wheelColor);
-        // paintl.setAlpha(150);
-        paintl.setStrokeWidth(6);
-        CornerPathEffect corEffect = new CornerPathEffect(7f);
-        paintl.setPathEffect(corEffect);
-        Path pathl = new Path();
+
+        CornerPathEffect corEffect = new CornerPathEffect(12f);
 
         Paint paintr = new Paint();
         paintr.setColor(this.wheelColor);
@@ -252,83 +249,24 @@ public final class MapCanvas extends View {
 
         Float offsetWheel = 0.9f * this.cellSize;
 
-        float [][] pathServoLeftCoord = {
-                { (this._map.getRobo().getX() - 0.5f) * this.cellSize, (this._map.getRobo().getY() + 0.15f) * this.cellSize },
-                { (this._map.getRobo().getX() - 0.9f) * this.cellSize, (this._map.getRobo().getY() - 0.6f) * this.cellSize },
-                { (this._map.getRobo().getX() - 0.45f) * this.cellSize, (this._map.getRobo().getY() - 0.85f) * this.cellSize },
-                { (this._map.getRobo().getX() - 0.1f) * this.cellSize, (this._map.getRobo().getY() - 0.1f) * this.cellSize }
-        };
-
-        float [][] pathServoRightCoord = {
-                { (this._map.getRobo().getX() - 0.75f) * this.cellSize, (this._map.getRobo().getY() - 0.1f) * this.cellSize },
-                { (this._map.getRobo().getX() - 0.45f) * this.cellSize, (this._map.getRobo().getY() - 0.85f) * this.cellSize },
-                { (this._map.getRobo().getX()) * this.cellSize, (this._map.getRobo().getY() - 0.6f) * this.cellSize },
-                { (this._map.getRobo().getX() - 0.35f) * this.cellSize, (this._map.getRobo().getY() + 0.1f) * this.cellSize }
-        };
-
         float [][] pathServoStraightCoord = {
-                { (this._map.getRobo().getX() - 0.7f) * this.cellSize, (this._map.getRobo().getY() + 0.1f) * this.cellSize},
+                { (this._map.getRobo().getX() - 0.7f) * this.cellSize, (this._map.getRobo().getY() - 0.1f) * this.cellSize},
                 { (this._map.getRobo().getX() - 0.7f) * this.cellSize, (this._map.getRobo().getY() - 0.75f) * this.cellSize },
                 { (this._map.getRobo().getX() - 0.2f) * this.cellSize, (this._map.getRobo().getY() - 0.75f) * this.cellSize },
-                { (this._map.getRobo().getX() - 0.2f) * this.cellSize, (this._map.getRobo().getY() + 0.1f) * this.cellSize }
+                { (this._map.getRobo().getX() - 0.2f) * this.cellSize, (this._map.getRobo().getY() - 0.1f) * this.cellSize }
         };
 
+        //RIGHT
+        pathr.moveTo(pathServoStraightCoord[0][0] + offsetWheel, pathServoStraightCoord[0][1]); //LB
+        pathr.lineTo(pathServoStraightCoord[1][0] + offsetWheel, pathServoStraightCoord[1][1]); //LT
+        pathr.lineTo(pathServoStraightCoord[2][0] + offsetWheel, pathServoStraightCoord[2][1]); //RT
+        pathr.lineTo(pathServoStraightCoord[3][0] + offsetWheel, pathServoStraightCoord[3][1]); //RB
+//        Log.d("DRAW Wheel", "LB: " + pathServoStraightCoord[0][0] + ", " + pathServoStraightCoord[0][1]);
+//        Log.d("DRAW Wheel", "LT: " + pathServoStraightCoord[1][0] + ", " + pathServoStraightCoord[1][1]);
+//        Log.d("DRAW Wheel", "RT: " + pathServoStraightCoord[2][0] + ", " + pathServoStraightCoord[2][1]);
+//        Log.d("DRAW Wheel", "RB: " + pathServoStraightCoord[3][0] + ", " + pathServoStraightCoord[3][1]);
+//        pathr.close();
 
-        // Draw servo
-        if (this._map.getRobo().getServo() != ROBOT_SERVO_CENTRE) {
-
-            switch(this._map.getRobo().getServo()) {
-                case ROBOT_SERVO_LEFT:
-                    // LEFT
-                    pathl.moveTo(pathServoLeftCoord[0][0], pathServoLeftCoord[0][1]); //LB
-                    pathl.lineTo(pathServoLeftCoord[1][0], pathServoLeftCoord[1][1]); //LT
-                    pathl.lineTo(pathServoLeftCoord[2][0], pathServoLeftCoord[2][1]); //RT
-                    pathl.lineTo(pathServoLeftCoord[3][0], pathServoLeftCoord[3][1]); //RB
-
-                    //RIGHT
-                    pathr.moveTo(pathServoLeftCoord[0][0] + offsetWheel, pathServoLeftCoord[0][1]); //LB
-                    pathr.lineTo(pathServoLeftCoord[1][0] + offsetWheel, pathServoLeftCoord[1][1]); //LT
-                    pathr.lineTo(pathServoLeftCoord[2][0] + offsetWheel, pathServoLeftCoord[2][1]); //RT
-                    pathr.lineTo(pathServoLeftCoord[3][0] + offsetWheel, pathServoLeftCoord[3][1]); //RB
-
-          // canvas.rotate(-45, this._map.getRobo().getX() + 0.33f * this.cellSize, this._map.getRobo().getY() + 18.25f * this.cellSize);
-
-                    break;
-                case ROBOT_SERVO_RIGHT:
-                    // LEFT
-                    pathl.moveTo(pathServoRightCoord[0][0], pathServoRightCoord[0][1]); //LB
-                    pathl.lineTo(pathServoRightCoord[1][0], pathServoRightCoord[1][1]); //LT
-                    pathl.lineTo(pathServoRightCoord[2][0], pathServoRightCoord[2][1]); //RT
-                    pathl.lineTo(pathServoRightCoord[3][0], pathServoRightCoord[3][1]); //RB
-
-                    //RIGHT
-                    pathr.moveTo(pathServoRightCoord[0][0] + offsetWheel, pathServoRightCoord[0][1]); //LB
-                    pathr.lineTo(pathServoRightCoord[1][0] + offsetWheel, pathServoRightCoord[1][1]); //LT
-                    pathr.lineTo(pathServoRightCoord[2][0] + offsetWheel, pathServoRightCoord[2][1]); //RT
-                    pathr.lineTo(pathServoRightCoord[3][0] + offsetWheel, pathServoRightCoord[3][1]); //RB
-
-                    // canvas.rotate(45, this._map.getRobo().getX() + 0.5f * this.cellSize, this._map.getRobo().getY() + 18.25f * this.cellSize);
-                    break;
-            }
-        } else {
-
-            // LEFT
-            pathl.moveTo(pathServoStraightCoord[0][0], pathServoStraightCoord[0][1]); //LB
-            pathl.lineTo(pathServoStraightCoord[1][0], pathServoStraightCoord[1][1]); //LT
-            pathl.lineTo(pathServoStraightCoord[2][0], pathServoStraightCoord[2][1]); //RT
-            pathl.lineTo(pathServoStraightCoord[3][0], pathServoStraightCoord[3][1]); //RB
-
-            //RIGHT
-            pathr.moveTo(pathServoStraightCoord[0][0] + offsetWheel, pathServoStraightCoord[0][1]); //LB
-            pathr.lineTo(pathServoStraightCoord[1][0] + offsetWheel, pathServoStraightCoord[1][1]); //LT
-            pathr.lineTo(pathServoStraightCoord[2][0] + offsetWheel, pathServoStraightCoord[2][1]); //RT
-            pathr.lineTo(pathServoStraightCoord[3][0] + offsetWheel, pathServoStraightCoord[3][1]); //RB
-
-        }
-
-        pathl.close();
-        canvas.drawPath(pathl, paintl);
-        pathr.close();
         canvas.drawPath(pathr, paintr);
 
         canvas.restore();
@@ -440,8 +378,13 @@ public final class MapCanvas extends View {
                             ? TARGET_BLOCK_TURN
                             : ((x == this._map.getRobo().getX() && y == this._map.getRobo().getY()) ||
                             (x == this._map.getRobo().getX() && y == this._map.getRobo().getY()+1) ||
+                            (x == this._map.getRobo().getX() && y == this._map.getRobo().getY()+2) ||
                             (x == this._map.getRobo().getX()+1 && y == this._map.getRobo().getY()) ||
-                            (x == this._map.getRobo().getX()+1 && y == this._map.getRobo().getY()+1))
+                            (x == this._map.getRobo().getX()+1 && y == this._map.getRobo().getY()+1) ||
+                            (x == this._map.getRobo().getX()+1 && y == this._map.getRobo().getY()+2) ||
+                            (x == this._map.getRobo().getX()-1 && y == this._map.getRobo().getY()) ||
+                            (x == this._map.getRobo().getX()-1 && y == this._map.getRobo().getY()+1) ||
+                            (x == this._map.getRobo().getX()-1 && y == this._map.getRobo().getY()+2))
                             ? CAR_BLOCK_TURN
                             : NEW_TARGET_TURN;
 
@@ -501,16 +444,27 @@ public final class MapCanvas extends View {
 
                 this._map.getBoard()[this._map.getRobo().getX()][this._map.getRobo().getY()] = EMPTY_CELL_CODE;
                 this._map.getBoard()[this._map.getRobo().getX()][this._map.getRobo().getY()+1] = EMPTY_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()][this._map.getRobo().getY()-1] = EMPTY_CELL_CODE;
                 this._map.getBoard()[this._map.getRobo().getX()+1][this._map.getRobo().getY()] = EMPTY_CELL_CODE;
                 this._map.getBoard()[this._map.getRobo().getX()+1][this._map.getRobo().getY()+1] = EMPTY_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()+1][this._map.getRobo().getY()-1] = EMPTY_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()-1][this._map.getRobo().getY()] = EMPTY_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()-1][this._map.getRobo().getY()+1] = EMPTY_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()+1][this._map.getRobo().getY()-1] = EMPTY_CELL_CODE;
 
                 this._map.getRobo().setX(x);
                 this._map.getRobo().setY(y);
 
                 this._map.getBoard()[this._map.getRobo().getX()][this._map.getRobo().getY()] = CAR_CELL_CODE;
                 this._map.getBoard()[this._map.getRobo().getX()][this._map.getRobo().getY()+1] = CAR_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()][this._map.getRobo().getY()-1] = CAR_CELL_CODE;
                 this._map.getBoard()[this._map.getRobo().getX()+1][this._map.getRobo().getY()] = CAR_CELL_CODE;
                 this._map.getBoard()[this._map.getRobo().getX()+1][this._map.getRobo().getY()+1] = CAR_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()+1][this._map.getRobo().getY()-1] = CAR_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()-1][this._map.getRobo().getY()] = CAR_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()-1][this._map.getRobo().getY()+1] = CAR_CELL_CODE;
+                this._map.getBoard()[this._map.getRobo().getX()-1][this._map.getRobo().getY()-1] = CAR_CELL_CODE;
+                Log.d("MapCanvas", "dragCell: " + _map.getBoard().length +" "+ (_map.getRobo().getX()) + " " + (_map.getRobo().getY()));
             }
 
         } else if (turn == TARGET_BLOCK_TURN) {

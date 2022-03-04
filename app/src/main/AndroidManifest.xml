@@ -33,7 +33,7 @@
             android:name=".bluetooth.scanningActivity"
             android:configChanges="orientation"
             android:exported="false"
-            android:screenOrientation="userLandscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".modes.FastestModeActivty"
             android:configChanges="orientation"
@@ -53,12 +53,12 @@
             android:name=".modes.ModeSelectionActivity"
             android:configChanges="orientation"
             android:exported="false"
-            android:screenOrientation="userLandscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
             android:configChanges="orientation"
             android:exported="true"
-            android:screenOrientation="userLandscape"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MDP.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

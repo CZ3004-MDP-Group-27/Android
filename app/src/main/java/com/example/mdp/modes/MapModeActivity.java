@@ -350,27 +350,27 @@ public class MapModeActivity extends AppCompatActivity {
 
                 break;
             case "FORWARDTURNLEFT":
-                forward(20,false,false);
+                forward(25,false,false);
                 inplaceLeft(true);
-                forward(35,false,true);
+                forward(40,false,true);
                 break;
             case "FORWARDTURNRIGHT":
-                forward(20,false,false);
+                forward(25,false,false);
                 inplaceRight(true);
-                forward(35,true, false);
+                forward(40,true, false);
                 break;
             case "BACKWARD":
                 backward(distance,false,false);
                 break;
             case "BACKWARDTURNLEFT":
-                backward(20,false,false);
+                backward(25,false,false);
                 inplaceRight(true);
-                backward(35,false,true);
+                backward(40,false,true);
                 break;
             case "BACKWARDTURNRIGHT":
-                backward(20,false,false);
+                backward(25,false,false);
                 inplaceLeft(true);
-                backward(35,true,false);
+                backward(40,true,false);
                 break;
             case "INPLACELEFT":
                 inplaceLeft(false);

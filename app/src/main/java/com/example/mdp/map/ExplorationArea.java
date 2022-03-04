@@ -26,6 +26,14 @@ public class ExplorationArea {
         super();
         robo = new Robot(this);
         board[robo.getX()][robo.getY()] = CAR_CELL_CODE;
+        board[robo.getX()][robo.getY()+1] = CAR_CELL_CODE;
+        board[robo.getX()][robo.getY()-1] = CAR_CELL_CODE;
+        board[robo.getX()+1][robo.getY()] = CAR_CELL_CODE;
+        board[robo.getX()+1][robo.getY()+1] = CAR_CELL_CODE;
+        board[robo.getX()+1][robo.getY()-1] = CAR_CELL_CODE;
+        board[robo.getX()-1][robo.getY()] = CAR_CELL_CODE;
+        board[robo.getX()-1][robo.getY()+1] = CAR_CELL_CODE;
+        board[robo.getX()-1][robo.getY()-1] = CAR_CELL_CODE;
 
     }
 
@@ -39,6 +47,14 @@ public class ExplorationArea {
         this.getRobo().setFacing(ROBOT_FACE_NORTH);
         obstacles.clear();
         this.board[getRobo().getX()][getRobo().getY()] = CAR_CELL_CODE;
+        this.board[robo.getX()][robo.getY()+1] = CAR_CELL_CODE;
+        this.board[robo.getX()][robo.getY()-1] = CAR_CELL_CODE;
+        this.board[robo.getX()+1][robo.getY()] = CAR_CELL_CODE;
+        this.board[robo.getX()+1][robo.getY()+1] = CAR_CELL_CODE;
+        this.board[robo.getX()+1][robo.getY()-1] = CAR_CELL_CODE;
+        this.board[robo.getX()-1][robo.getY()] = CAR_CELL_CODE;
+        this.board[robo.getX()-1][robo.getY()+1] = CAR_CELL_CODE;
+        this.board[robo.getX()-1][robo.getY()-1] = CAR_CELL_CODE;
     }
 
     public Robot getRobo() { return robo;}

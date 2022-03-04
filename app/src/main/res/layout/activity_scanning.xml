@@ -48,7 +48,7 @@
         android:id="@+id/pairedDevicesList"
         android:layout_width="400dp"
         android:layout_height="450dp"
-        android:layout_marginStart="100dp"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="15dp"
         android:layout_below="@id/pairedDevicesText"
         android:divider="@color/white"/>
@@ -74,7 +74,6 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="15dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="100dp"
         android:layout_below="@id/availableDevicesText"
         android:divider="@color/white"/>
 
