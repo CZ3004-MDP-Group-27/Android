@@ -94,7 +94,8 @@ public class MapModeActivity extends AppCompatActivity {
                     mapCanvas.setSolving(true);
                     updateStatusText("Task 1 Begin");
                     Log.d("MAP MODE","START IMAGE RECOGNITION CHALLENGE");
-                    int robotX = _map.getRobo().getX() * 10 - 5;
+                    int robotX = _map.getRobo().getX() * 10 + 5;
+                    Log.d("StartImage", "onClick: " + robotX);
                     int robotY = (21  - _map.getRobo().getY()) * 10 - 5;
                     int robotFacing = _map.getRobo().getFacing();
                     command = "map-ROB:" + robotX + "," + robotY + ";";
@@ -370,12 +371,12 @@ public class MapModeActivity extends AppCompatActivity {
 
                 break;
             case "FORWARDTURNLEFT":
-                forward(25,false,false);
+                forward(20,false,false);
                 inplaceLeft(true);
                 forward(40,false,true);
                 break;
             case "FORWARDTURNRIGHT":
-                forward(25,false,false);
+                forward(20,false,false);
                 inplaceRight(true);
                 forward(40,true, false);
                 break;
@@ -383,12 +384,12 @@ public class MapModeActivity extends AppCompatActivity {
                 backward(distance,false,false);
                 break;
             case "BACKWARDTURNLEFT":
-                backward(25,false,false);
+                backward(20,false,false);
                 inplaceRight(true);
                 backward(40,false,true);
                 break;
             case "BACKWARDTURNRIGHT":
-                backward(25,false,false);
+                backward(20,false,false);
                 inplaceLeft(true);
                 backward(40,true,false);
                 break;
