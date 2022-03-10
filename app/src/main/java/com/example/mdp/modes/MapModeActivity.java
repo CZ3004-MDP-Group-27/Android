@@ -2,12 +2,14 @@ package com.example.mdp.modes;
 
 import static android.os.SystemClock.sleep;
 import static com.example.mdp.R.menu.menu_grid;
+import static com.example.mdp.map.ExplorationArea.TARGET_CELL_CODE;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +18,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,10 +39,18 @@ import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 public class MapModeActivity extends AppCompatActivity {
-    Button startStopwatch, stopStopwatch, resetStopwatch, sendPos;
+    EditText xText1, xText2, xText3, xText4, xText5, xText6, xText7, xText8;
+    EditText yText1, yText2, yText3, yText4, yText5, yText6, yText7, yText8; 
+    EditText zText1, zText2, zText3, zText4, zText5, zText6, zText7, zText8; 
+    
+    Button startStopwatch, stopStopwatch, resetStopwatch, sendPos, popupCancel, popupCreateObstacles, addRow;
     TextView stopwatchText;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
     private static TextView statusText;
     private boolean isResume;
+    private ListView popupListView;
+    private
     Handler handler;
     long tMilliSec, tStart, tBuff, tUpdate = 0L;
     int milliSec, sec, min;
@@ -80,7 +94,10 @@ public class MapModeActivity extends AppCompatActivity {
                     mapCanvas.setSolving(true);
                     updateStatusText("Task 1 Begin");
                     Log.d("MAP MODE","START IMAGE RECOGNITION CHALLENGE");
-                    command = "map-ROB:15,15;";
+                    int robotX = _map.getRobo().getX() * 10 - 5;
+                    int robotY = (21  - _map.getRobo().getY()) * 10 - 5;
+                    int robotFacing = _map.getRobo().getFacing();
+                    command = "map-ROB:" + robotX + "," + robotY + ";";
                     int xPos, yPos, direction, number;
                     for (int i = 0; i < _map.getTargets().size(); i++) {
                         xPos = (_map.getTargets().get(i).getX()) * 10 - 5;
@@ -116,8 +133,8 @@ public class MapModeActivity extends AppCompatActivity {
                     mapCanvas.setSolving(false);
                     updateStatusText("Stopped");
                     Log.d("MAP MODE","END IMAGE RECOGNITION CHALLENGE");
-                    BTService.sendMessage("stopImage");
-                    outgoing = "twenty-seven: stopImage\n";
+//                    BTService.sendMessage("stopImage");
+//                    outgoing = "twenty-seven: stopImage\n";
                     messageActivity.chatHistory += outgoing;
                     if (isResume) {
                         tBuff += tMilliSec;
@@ -179,6 +196,9 @@ public class MapModeActivity extends AppCompatActivity {
 //                BTService.sendMessage("pc-Obstacles:cleared,Robot:origin");
                 outgoing = "twenty-seven: resetGrid\n";
                 messageActivity.chatHistory += outgoing;
+                return true;
+            case R.id.addObstacles:
+                createAddObstacleDialog();
                 return true;
             case android.R.id.home:
                 this.finish();
@@ -394,5 +414,137 @@ public class MapModeActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public static void updateStatusText(String status) {
         statusText.setText("Status: " + status);
+    }
+
+    public void createAddObstacleDialog() {
+        int count = 1;
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View addObstaclePopupView = getLayoutInflater().inflate(R.layout.add_obstacle_popup, null);
+
+        popupCancel = addObstaclePopupView.findViewById(R.id.popupCancel);
+        popupCreateObstacles = addObstaclePopupView.findViewById(R.id.popupCreateObstacles);
+
+        xText1 = addObstaclePopupView.findViewById(R.id.xText1);
+        xText2 = addObstaclePopupView.findViewById(R.id.xText2);
+        xText3 = addObstaclePopupView.findViewById(R.id.xText3);
+        xText4 = addObstaclePopupView.findViewById(R.id.xText4);
+        xText5 = addObstaclePopupView.findViewById(R.id.xText5);
+        xText6 = addObstaclePopupView.findViewById(R.id.xText6);
+        xText7 = addObstaclePopupView.findViewById(R.id.xText7);
+        xText8 = addObstaclePopupView.findViewById(R.id.xText8);
+
+        yText1 = addObstaclePopupView.findViewById(R.id.yText1);
+        yText2 = addObstaclePopupView.findViewById(R.id.yText2);
+        yText3 = addObstaclePopupView.findViewById(R.id.yText3);
+        yText4 = addObstaclePopupView.findViewById(R.id.yText4);
+        yText5 = addObstaclePopupView.findViewById(R.id.yText5);
+        yText6 = addObstaclePopupView.findViewById(R.id.yText6);
+        yText7 = addObstaclePopupView.findViewById(R.id.yText7);
+        yText8 = addObstaclePopupView.findViewById(R.id.yText8);
+
+        zText1 = addObstaclePopupView.findViewById(R.id.zText1);
+        zText2 = addObstaclePopupView.findViewById(R.id.zText2);
+        zText3 = addObstaclePopupView.findViewById(R.id.zText3);
+        zText4 = addObstaclePopupView.findViewById(R.id.zText4);
+        zText5 = addObstaclePopupView.findViewById(R.id.zText5);
+        zText6 = addObstaclePopupView.findViewById(R.id.zText6);
+        zText7 = addObstaclePopupView.findViewById(R.id.zText7);
+        zText8 = addObstaclePopupView.findViewById(R.id.zText8);
+        
+
+        dialogBuilder.setView(addObstaclePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        popupCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        popupCreateObstacles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Obstacle t;
+                int x,y,facing;
+
+                if (!xText1.getText().toString().equals("") && !yText1.getText().toString().equals("") && !zText1.getText().toString().equals("")) {
+                    x = Integer.parseInt((xText1.getText().toString()));
+                    y = 21 - Integer.parseInt((yText1.getText().toString()));
+                    facing = Integer.parseInt((zText1.getText().toString()));
+                    t = new Obstacle(x, y, _map.getTargets().size());
+                    _map.getBoard()[t.getX()][t.getY()] = TARGET_CELL_CODE;
+                    _map.getTargets().add(t);
+                    t.setF(facing / 90);
+                }
+                Log.d("popupCreate", "onClick: " +xText2);
+                if (!xText2.getText().toString().equals("") && !yText2.getText().toString().equals("") && !zText2.getText().toString().equals("")) {
+                    x = Integer.parseInt((xText2.getText().toString()));
+                    y = 21 - Integer.parseInt((yText2.getText().toString()));
+                    facing = Integer.parseInt((zText2.getText().toString()));
+                    t = new Obstacle(x, y, _map.getTargets().size());
+                    _map.getBoard()[t.getX()][t.getY()] = TARGET_CELL_CODE;
+                    _map.getTargets().add(t);
+                    t.setF(facing / 90);
+                }
+                if (!xText3.getText().toString().equals("") && !yText3.getText().toString().equals("") && !zText3.getText().toString().equals("")) {
+                    x = Integer.parseInt((xText3.getText().toString()));
+                    y = 21 - Integer.parseInt((yText3.getText().toString()));
+                    facing = Integer.parseInt((zText3.getText().toString()));
+                    t = new Obstacle(x, y, _map.getTargets().size());
+                    _map.getBoard()[t.getX()][t.getY()] = TARGET_CELL_CODE;
+                    _map.getTargets().add(t);
+                    t.setF(facing / 90);
+                }
+                if (!xText4.getText().toString().equals("") && !yText4.getText().toString().equals("") && !zText4.getText().toString().equals("")) {
+                    x = Integer.parseInt((xText4.getText().toString()));
+                    y = 21 - Integer.parseInt((yText4.getText().toString()));
+                    facing = Integer.parseInt((zText4.getText().toString()));
+                    t = new Obstacle(x, y, _map.getTargets().size());
+                    _map.getBoard()[t.getX()][t.getY()] = TARGET_CELL_CODE;
+                    _map.getTargets().add(t);
+                    t.setF(facing / 90);
+                }
+                if (!xText5.getText().toString().equals("") && !yText5.getText().toString().equals("") && !zText5.getText().toString().equals("")) {
+                    x = Integer.parseInt((xText5.getText().toString()));
+                    y = 21 - Integer.parseInt((yText5.getText().toString()));
+                    facing = Integer.parseInt((zText5.getText().toString()));
+                    t = new Obstacle(x, y, _map.getTargets().size());
+                    _map.getBoard()[t.getX()][t.getY()] = TARGET_CELL_CODE;
+                    _map.getTargets().add(t);
+                    t.setF(facing / 90);
+                }
+                if (!xText6.getText().toString().equals("") && !yText6.getText().toString().equals("") && !zText6.getText().toString().equals("")) {
+                    x = Integer.parseInt((xText6.getText().toString()));
+                    y = 21 - Integer.parseInt((yText6.getText().toString()));
+                    facing = Integer.parseInt((zText6.getText().toString()));
+                    t = new Obstacle(x, y, _map.getTargets().size());
+                    _map.getBoard()[t.getX()][t.getY()] = TARGET_CELL_CODE;
+                    _map.getTargets().add(t);
+                    t.setF(facing / 90);
+                }
+                if (!xText7.getText().toString().equals("") && !yText7.getText().toString().equals("") && !zText7.getText().toString().equals("")) {
+                    x = Integer.parseInt((xText7.getText().toString()));
+                    y = 21 - Integer.parseInt((yText7.getText().toString()));
+                    facing = Integer.parseInt((zText7.getText().toString()));
+                    t = new Obstacle(x, y, _map.getTargets().size());
+                    _map.getBoard()[t.getX()][t.getY()] = TARGET_CELL_CODE;
+                    _map.getTargets().add(t);
+                    t.setF(facing / 90);
+                }
+                if (!xText8.getText().toString().equals("") && !yText8.getText().toString().equals("") && !zText8.getText().toString().equals("")) {
+                    x = Integer.parseInt((xText8.getText().toString()));
+                    y = 21 - Integer.parseInt((yText8.getText().toString()));
+                    facing = Integer.parseInt((zText8.getText().toString()));
+                    t = new Obstacle(x, y, _map.getTargets().size());
+                    _map.getBoard()[t.getX()][t.getY()] = TARGET_CELL_CODE;
+                    _map.getTargets().add(t);
+                    t.setF(facing / 90);
+                }
+                
+                dialog.dismiss();
+            }
+        });
     }
 }

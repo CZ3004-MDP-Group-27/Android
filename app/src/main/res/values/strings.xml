@@ -26,4 +26,5 @@
     <string name="reset_image_recognition">Reset Image Recognition</string>
     <string name="back_to_mode_selection">Back to Mode Selection</string>
     <string name="send_obstacle_positions">Send Obstacle Positions</string>
+    <string name="add_obstacles">Add Obstacles</string>
 </resources>

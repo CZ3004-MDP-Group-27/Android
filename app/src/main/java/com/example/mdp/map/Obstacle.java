@@ -63,6 +63,10 @@ public class Obstacle {
         return f;
     }
 
+    public void setF(int f) {
+        this.f = f;
+    }
+
     public void cycleFaceClockwise(boolean clockwise) {
         if (clockwise)
             this.f = this.f == TARGET_FACE_SOUTH ? TARGET_FACE_EAST : this.f + 1;

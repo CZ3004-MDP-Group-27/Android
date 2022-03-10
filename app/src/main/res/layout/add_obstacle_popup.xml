@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    
+    <TextView
+        android:id="@+id/obstacleNo1"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x1"
+        android:layout_marginStart="50dp"
+        android:text="Obstacle1: "
+        android:fontFamily="@font/lato"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/x1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_alignStart="@+id/xText1"
+        android:layout_alignEnd="@id/xText1"
+        android:textAlignment="center"
+        android:text="x"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/xText1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/obstacleNo1"
+        android:layout_marginStart="30dp"
+        android:layout_below="@id/x1"
+        android:inputType="number"/>
+    <TextView
+        android:id="@+id/y1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_alignStart="@+id/yText1"
+        android:layout_alignEnd="@id/yText1"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText1"
+        android:layout_toRightOf="@id/xText1"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x1"
+        android:inputType="number"/>
+    <TextView
+        android:id="@+id/facing1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_alignStart="@+id/zText1"
+        android:layout_alignEnd="@id/zText1"
+        android:textAlignment="center"
+        android:text="Facing"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/zText1"
+        android:layout_toRightOf="@id/yText1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_below="@id/facing1"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/obstacleNo2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x2"
+        android:layout_marginStart="50dp"
+        android:text="Obstacle2: "
+        android:fontFamily="@font/lato"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/x2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xText1"
+        android:layout_marginTop="20dp"
+        android:layout_alignStart="@+id/xText2"
+        android:layout_alignEnd="@id/xText2"
+        android:textAlignment="center"
+        android:text="x"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/xText2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/obstacleNo2"
+        android:layout_marginStart="30dp"
+        android:layout_below="@id/x2"
+        android:inputType="number"/>
+    <TextView
+        android:id="@+id/y2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_above="@id/yText2"
+        android:layout_alignStart="@+id/yText2"
+        android:layout_alignEnd="@id/yText2"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText2"
+        android:layout_toRightOf="@id/xText2"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x2"
+        android:inputType="number"/>
+    <TextView
+        android:id="@+id/facing2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/zText1"
+        android:layout_alignStart="@+id/zText2"
+        android:layout_alignEnd="@id/zText2"
+        android:textAlignment="center"
+        android:text="Facing"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/zText2"
+        android:layout_toRightOf="@id/yText2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_below="@id/facing2"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/obstacleNo3"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x3"
+        android:layout_marginStart="50dp"
+        android:text="Obstacle3: "
+        android:fontFamily="@font/lato"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/x3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xText2"
+        android:layout_alignStart="@+id/xText3"
+        android:layout_alignEnd="@id/xText3"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="x"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/xText3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x3"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/obstacleNo3"
+        android:inputType="number" />
+    <TextView
+        android:id="@+id/y3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_above="@id/yText3"
+        android:layout_alignStart="@+id/yText3"
+        android:layout_alignEnd="@id/yText3"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText3"
+        android:layout_toRightOf="@id/xText3"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x3"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/facing3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zText2"
+        android:layout_alignStart="@+id/zText3"
+        android:layout_alignEnd="@id/zText3"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="Facing"
+        android:textAlignment="center" />
+    <EditText
+        android:id="@+id/zText3"
+        android:layout_toRightOf="@id/yText3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_below="@id/facing3"
+        android:inputType="number"/>
+    
+    <TextView
+        android:id="@+id/obstacleNo4"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x4"
+        android:layout_marginStart="50dp"
+        android:text="Obstacle4: "
+        android:fontFamily="@font/lato"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/x4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xText3"
+        android:layout_alignStart="@+id/xText4"
+        android:layout_alignEnd="@id/xText4"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="x"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/xText4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x4"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/obstacleNo4"
+        android:inputType="number" />
+    <TextView
+        android:id="@+id/y4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_above="@id/yText4"
+        android:layout_alignStart="@+id/yText4"
+        android:layout_alignEnd="@id/yText4"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText4"
+        android:layout_toRightOf="@id/xText4"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x4"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/facing4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zText3"
+        android:layout_alignStart="@+id/zText4"
+        android:layout_alignEnd="@id/zText4"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="Facing"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/zText4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/facing4"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/yText4"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/obstacleNo5"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x5"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="Obstacle5: " />
+
+    <TextView
+        android:id="@+id/x5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xText4"
+        android:layout_alignStart="@+id/xText5"
+        android:layout_alignEnd="@id/xText5"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="x"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/xText5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x5"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/obstacleNo5"
+        android:inputType="number" />
+    <TextView
+        android:id="@+id/y5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_above="@id/yText5"
+        android:layout_alignStart="@+id/yText5"
+        android:layout_alignEnd="@id/yText5"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText5"
+        android:layout_toRightOf="@id/xText5"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x5"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/facing5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zText4"
+        android:layout_alignStart="@+id/zText5"
+        android:layout_alignEnd="@id/zText5"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="Facing"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/zText5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/facing5"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/yText5"
+        android:inputType="number" />
+    
+    <TextView
+        android:id="@+id/obstacleNo6"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x6"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="Obstacle6: " />
+
+    <TextView
+        android:id="@+id/x6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xText5"
+        android:layout_alignStart="@+id/xText6"
+        android:layout_alignEnd="@id/xText6"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="x"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/xText6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x6"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/obstacleNo6"
+        android:inputType="number" />
+    <TextView
+        android:id="@+id/y6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_above="@id/yText6"
+        android:layout_alignStart="@+id/yText6"
+        android:layout_alignEnd="@id/yText6"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText6"
+        android:layout_toRightOf="@id/xText6"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x6"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/facing6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zText5"
+        android:layout_alignStart="@+id/zText6"
+        android:layout_alignEnd="@id/zText6"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="Facing"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/zText6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/facing6"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/yText6"
+        android:inputType="number" />
+    
+    <TextView
+        android:id="@+id/obstacleNo7"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x7"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="Obstacle7: " />
+
+    <TextView
+        android:id="@+id/x7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xText6"
+        android:layout_alignStart="@+id/xText7"
+        android:layout_alignEnd="@id/xText7"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="x"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/xText7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x7"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/obstacleNo7"
+        android:inputType="number" />
+    <TextView
+        android:id="@+id/y7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_above="@id/yText7"
+        android:layout_alignStart="@+id/yText7"
+        android:layout_alignEnd="@id/yText7"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText7"
+        android:layout_toRightOf="@id/xText7"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x7"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/facing7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zText6"
+        android:layout_alignStart="@+id/zText7"
+        android:layout_alignEnd="@id/zText7"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="Facing"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/zText7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/facing7"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/yText7"
+        android:inputType="number" />
+    
+    <TextView
+        android:id="@+id/obstacleNo8"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x8"
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="Obstacle8: " />
+
+    <TextView
+        android:id="@+id/x8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xText7"
+        android:layout_alignStart="@+id/xText8"
+        android:layout_alignEnd="@id/xText8"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="x"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/xText8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x8"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/obstacleNo8"
+        android:inputType="number" />
+    <TextView
+        android:id="@+id/y8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_above="@id/yText8"
+        android:layout_alignStart="@+id/yText8"
+        android:layout_alignEnd="@id/yText8"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText8"
+        android:layout_toRightOf="@id/xText8"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x8"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/facing8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/zText7"
+        android:layout_alignStart="@+id/zText8"
+        android:layout_alignEnd="@id/zText8"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato"
+        android:text="Facing"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/zText8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/facing8"
+        android:layout_marginStart="30dp"
+        android:layout_toRightOf="@id/yText8"
+        android:inputType="number" />
+    
+    <Button
+        android:id="@+id/popupCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/zText8"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="50dp"
+        android:backgroundTint="@color/red_crayola"
+        android:layout_marginBottom="10dp"
+        android:text="Cancel"
+        android:textAlignment="center"
+        android:fontFamily="@font/lato"/>
+
+    <Button
+        android:id="@+id/popupCreateObstacles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/popupCancel"
+        android:layout_below="@id/zText8"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/emerald"
+        android:text="Create Obstacles"
+        android:textAlignment="center"
+        android:fontFamily="@font/lato"/>
+
+</RelativeLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/obstacleNo"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/x"
+        android:layout_marginStart="50dp"
+        android:text="Obstacle: "
+        android:fontFamily="@font/lato"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/xText"
+        android:layout_alignEnd="@id/xText"
+        android:textAlignment="center"
+        android:text="x"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/xText"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/obstacleNo"
+        android:layout_marginStart="30dp"
+        android:layout_below="@id/x"
+        android:inputType="number"/>
+    <TextView
+        android:id="@+id/y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/yText"
+        android:layout_alignEnd="@id/yText"
+        android:textAlignment="center"
+        android:text="y"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/yText"
+        android:layout_toRightOf="@id/xText"
+        android:layout_marginStart="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/x"
+        android:inputType="number"/>
+    <TextView
+        android:id="@+id/facing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/zText"
+        android:layout_alignEnd="@id/zText"
+        android:textAlignment="center"
+        android:text="Facing"
+        android:fontFamily="@font/lato"/>
+    <EditText
+        android:id="@+id/zText"
+        android:layout_toRightOf="@id/yText"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_below="@id/facing"
+        android:inputType="number"/>
+
+
+</RelativeLayout>

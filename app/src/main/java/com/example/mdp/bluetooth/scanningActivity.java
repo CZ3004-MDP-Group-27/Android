@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.example.mdp.R;
 import com.example.mdp.SplashActivity;
+import com.example.mdp.modes.MapModeActivity;
 import com.example.mdp.modes.ModeSelectionActivity;
 import com.example.mdp.modes.RcModeActivity;
 
@@ -128,9 +129,7 @@ public class scanningActivity extends AppCompatActivity {
                         Log.d("BTService", "Connecting");
                     }
                 }
-                Toast.makeText(scanningActivity.this, "Device connected.", Toast.LENGTH_SHORT).show();
-                Intent switchActivityIntent = new Intent(scanningActivity.this, messageActivity.class);
-                startActivity(switchActivityIntent);
+//                Toast.makeText(scanningActivity.this, "Device connected.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -314,6 +313,8 @@ public class scanningActivity extends AppCompatActivity {
                 Toast.makeText(scanningActivity.this, "Device now connected to "+mDevice.getName(), Toast.LENGTH_SHORT).show();
                 editor.putString("connStatus", "Connected to " + mDevice.getName());
 //                statusTextView.setText("Connected to " + mDevice.getName());
+                Intent switchActivityIntent = new Intent(scanningActivity.this, MapModeActivity.class);
+                startActivity(switchActivityIntent);
             }
             else if(status.equals("disconnected") && retryConnection == false){
                 Toast.makeText(scanningActivity.this, "Disconnected from "+mDevice.getName(), Toast.LENGTH_SHORT).show();
