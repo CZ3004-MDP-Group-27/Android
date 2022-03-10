@@ -1,5 +1,8 @@
 package com.example.mdp.bluetooth;
 
+import static com.example.mdp.R.menu.menu_chat;
+import static com.example.mdp.R.menu.menu_grid;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +17,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -90,9 +94,20 @@ public class messageActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(menu_chat, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent switchActivityIntent;
         switch (item.getItemId()) {
+            case R.id.gridShortcut:
+                switchActivityIntent = new Intent(this, MapModeActivity.class);
+                startActivity(switchActivityIntent);
+                return true;
+
             case android.R.id.home:
                 switchActivityIntent = new Intent(this, ModeSelectionActivity.class);
                 startActivity(switchActivityIntent);
@@ -124,6 +139,7 @@ public class messageActivity extends AppCompatActivity {
             switch(messageArray[0]) {
                 case "TARGET":
                     MapModeActivity.updateTarget(messageArray[1]);
+//                    BTService.sendMessage("received");
                     break;
                 case "ROBOT":
                     MapModeActivity.moveRobot(messageArray[1]);

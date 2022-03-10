@@ -313,7 +313,7 @@ public class scanningActivity extends AppCompatActivity {
                 Toast.makeText(scanningActivity.this, "Device now connected to "+mDevice.getName(), Toast.LENGTH_SHORT).show();
                 editor.putString("connStatus", "Connected to " + mDevice.getName());
 //                statusTextView.setText("Connected to " + mDevice.getName());
-                Intent switchActivityIntent = new Intent(scanningActivity.this, MapModeActivity.class);
+                Intent switchActivityIntent = new Intent(scanningActivity.this, messageActivity.class);
                 startActivity(switchActivityIntent);
             }
             else if(status.equals("disconnected") && retryConnection == false){

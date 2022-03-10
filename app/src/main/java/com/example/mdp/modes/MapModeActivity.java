@@ -362,7 +362,11 @@ public class MapModeActivity extends AppCompatActivity {
         int currentDir = _map.getRobo().getFacing();
         Log.d("MapMode", "Current X,Y: " + currentX + ", " +currentY + "Facing: " + currentDir);
         if (instruction.length > 1) {
-            distance = Integer.parseInt(instruction[1]);
+            try {
+                distance = Integer.parseInt(instruction[1]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         switch (instruction[0]) {
             case "FORWARD":
@@ -384,14 +388,14 @@ public class MapModeActivity extends AppCompatActivity {
                 backward(distance,false,false);
                 break;
             case "BACKWARDTURNLEFT":
-                backward(20,false,false);
+                backward(40,false,false);
                 inplaceRight(true);
-                backward(40,false,true);
+                backward(20,false,true);
                 break;
             case "BACKWARDTURNRIGHT":
-                backward(20,false,false);
+                backward(40,false,false);
                 inplaceLeft(true);
-                backward(40,true,false);
+                backward(20,true,false);
                 break;
             case "INPLACELEFT":
                 inplaceLeft(false);
@@ -405,11 +409,16 @@ public class MapModeActivity extends AppCompatActivity {
     public static void updateTarget(String information) {
         Log.d("MapMode", "updateTarget: " + information);
         String[] targetImage = information.split(",",2);
-        int obstacleId = Integer.parseInt(targetImage[0]) - 1;
-        int imageId = Integer.parseInt(targetImage[1]);
-        ArrayList<Obstacle> targets = _map.getTargets();
-        targets.get(obstacleId).setImg(imageId);
-        updateStatusText("Image on Obstacle" + obstacleId + 1 + " recognised  as Image ID: " + imageId);
+        try {
+            int obstacleId = Integer.parseInt(targetImage[0]) - 1;
+            int imageId = Integer.parseInt(targetImage[1]);
+            ArrayList<Obstacle> targets = _map.getTargets();
+            targets.get(obstacleId).setImg(imageId);
+            updateStatusText("Image on Obstacle" + obstacleId + 1 + " recognised  as Image ID: " + imageId);
+            BTService.sendMessage("received");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @SuppressLint("SetTextI18n")
