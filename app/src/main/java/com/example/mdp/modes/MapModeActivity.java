@@ -404,6 +404,7 @@ public class MapModeActivity extends AppCompatActivity {
                 inplaceRight(false);
                 break;
         }
+        BTService.sendMessage("received");
     }
 
     public static void updateTarget(String information) {
